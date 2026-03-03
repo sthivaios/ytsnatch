@@ -8,6 +8,7 @@ export async function downloadVideo(url: string) {
   jobs.set(jobId, { status: "pending" });
 
   const newJob = child_process.spawn("yt-dlp", [
+    "--js-runtimes", "node",
     "-o", `/tmp/ytsnatch/${jobId}.%(ext)s`,
     "--merge-output-format", "mp4",
     url
@@ -16,6 +17,16 @@ export async function downloadVideo(url: string) {
   console.log(newJob);
 
   newJob.on("close", (code) => {
-    jobs.set(jobId, { status: "done", filename: `${jobId}.mp4` });
+    if (code !== 0) {
+      jobs.set(jobId, { status: "error" });
+    } else {
+      jobs.set(jobId, { status: "done", filename: `${jobId}.mp4` });
+    }
   });
+
+  newJob.stderr.on("data", (data) => {
+    console.error(`yt-dlp: ${data}`);
+  });
+
+  return jobId;
 }
