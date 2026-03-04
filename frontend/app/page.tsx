@@ -7,6 +7,8 @@ import { actionStatus } from "@/app/action-status";
 import { DownloadsTable } from "@/app/table";
 import { tryCatch } from "@/lib/try-catch";
 import { toast } from "sonner";
+import LogoutButton from "@/components/logout-button";
+import { Separator } from "@/components/ui/separator";
 
 export type DownloadEntry = {
   jobId: string;
@@ -65,9 +67,19 @@ export default function Page() {
 
   return (
     <div className="flex flex-col w-full items-center justify-center">
-      <div className="flex flex-col items-center gap-10 ">
-        <NewDownloadDialog callback={newDownload} />
-        <DownloadsTable downloads={downloads} />
+      <div className="flex flex-col items-center gap-10 w-[60%]">
+        <div className="flex flex-col gap-2 items-center">
+          <p className="text-sm font-bold">Available options:</p>
+          <div className="flex flex-row gap-2 items-center">
+            <NewDownloadDialog callback={newDownload} />
+            <LogoutButton />
+          </div>
+        </div>
+        <Separator />
+        <div className="flex flex-col gap-2 items-center w-full">
+          <p className="text-sm font-bold">Your Downloads:</p>
+          <DownloadsTable downloads={downloads} />
+        </div>
       </div>
     </div>
   );

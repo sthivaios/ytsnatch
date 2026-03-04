@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Card } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
+import LogoutButton from "@/components/logout-button";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
