@@ -1,6 +1,6 @@
 import child_process from "child_process";
 import { v4 as uuidv4 } from "uuid";
-import { jobs } from "../index";
+import { jobs } from "../index.js";
 
 export function downloadVideo(url: string) {
   const jobId = uuidv4();

@@ -1,5 +1,5 @@
 import express from "express";
-import { downloadVideo } from "../lib/download-process";
+import { downloadVideo } from "../lib/download-process.js";
 
 const router = express.Router();
 
