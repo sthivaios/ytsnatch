@@ -1,7 +1,7 @@
 "use server";
 
 export async function actionRetrieve(url: string) {
-  const res = await fetch(`${process.env.API_ENDPOINT}/retrieve`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/retrieve`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -9,8 +9,6 @@ export async function actionRetrieve(url: string) {
     },
     body: JSON.stringify({ url: url }),
   });
-
-  console.log(await res.json());
 
   if (!res.ok) throw new Error("server error");
 

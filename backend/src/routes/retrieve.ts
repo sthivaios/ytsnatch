@@ -12,7 +12,7 @@ router.post("", async (req, res) => {
     return;
   }
 
-  const api_token = req.headers["Authorization"];
+  const api_token = req.headers["authorization"];
   if (!api_token || api_token !== process.env.API_TOKEN) {
     res.status(401).send({ error: "Unauthorized! Wrong or no API key" });
     return;
@@ -27,7 +27,7 @@ router.post("", async (req, res) => {
     return;
   }
 
-  const jobId = await downloadVideo(req.body.url);
+  const jobId = downloadVideo(req.body.url);
 
   res.status(200).send({ job_id: jobId });
 });

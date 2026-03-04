@@ -57,7 +57,7 @@ export function DownloadsTable(props: { downloads: DownloadEntry[] }) {
                   {download.status === "done" ? (
                     <div>
                       <a
-                        href={`http://localhost:4000/retrieve_file?job_id=${download.jobId}`}
+                        href={`${process.env.NEXT_PUBLIC_API_ENDPOINT}/retrieve_file?job_id=${download.jobId}`}
                         download
                       >
                         <Button className="hover:cursor-pointer max-h-6.5">
