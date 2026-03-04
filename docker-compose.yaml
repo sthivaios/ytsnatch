@@ -1,0 +1,8 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      - PORT=4000
+      - API_TOKEN=${API_TOKEN}
+    volumes:
+      - /tmp/ytsnatch:/tmp/ytsnatch
