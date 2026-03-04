@@ -1,13 +1,19 @@
 "use server";
 
 export async function actionRetrieve(url: string) {
-  const res = await fetch("http://localhost:4000/retrieve", {
+  const res = await fetch(`${process.env.API_ENDPOINT}/retrieve`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: process.env.API_KEY ?? "",
+    },
     body: JSON.stringify({ url: url }),
   });
 
-  if (!res.ok) throw new Error("something went wrong");
+  console.log(await res.json());
+
+  if (!res.ok) throw new Error("server error");
+
   const data = await res.json();
   return data;
 }

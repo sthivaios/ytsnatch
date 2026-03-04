@@ -62,6 +62,7 @@ export function NewDownloadDialog(props: { callback: (url: string) => void }) {
             <Button
               type="submit"
               className="hover:cursor-pointer"
+              disabled={url.length < 1 ? true : false}
               onClick={() => {
                 props.callback(url);
                 setOpen(false);

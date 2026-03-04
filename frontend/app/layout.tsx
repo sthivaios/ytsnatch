@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Card } from "@/components/ui/card";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -62,6 +63,7 @@ export default function RootLayout({
               </p>
             </div>
           </div>
+          <Toaster richColors={true} position="top-center" closeButton={true} />
         </ThemeProvider>
       </body>
     </html>

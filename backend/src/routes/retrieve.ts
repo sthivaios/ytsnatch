@@ -13,7 +13,7 @@ router.post("", async (req, res) => {
   }
 
   const api_token = req.headers["Authorization"];
-  if (!api_token || api_token !== process.env.API_KEY) {
+  if (!api_token || api_token !== process.env.API_TOKEN) {
     res.status(401).send({ error: "Unauthorized! Wrong or no API key" });
     return;
   }

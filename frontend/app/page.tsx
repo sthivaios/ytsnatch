@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { actionRetrieve } from "./action-retrieve";
 import { actionStatus } from "@/app/action-status";
 import { DownloadsTable } from "@/app/table";
+import { tryCatch } from "@/lib/try-catch";
+import { toast } from "sonner";
 
 export type DownloadEntry = {
   jobId: string;
@@ -31,15 +33,34 @@ export default function Page() {
   };
 
   const newDownload = async (url: string) => {
-    const response = await actionRetrieve(url);
-    if (!response.job_id) {
+    const isValidUrl =
+      /^https?:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]+/.test(
+        url,
+      );
+    if (!isValidUrl) {
+      toast.info("Enter a valid YouTube URL", {
+        description: `You entered "${url}" which isn't valid. A YouTube URL looks something like "https://youtube.com/watch?v=xxxx" where xxxx is the ID of the video.`,
+      });
+      return;
+    }
+
+    const { data, error } = await tryCatch(actionRetrieve(url));
+
+    if (error) {
+      toast.warning(
+        "Download failed. Something is wrong with the server. Try again later.",
+      );
+      return;
+    }
+
+    if (!data.job_id) {
       return;
     }
     setDownloads((prev) => [
       ...prev,
-      { jobId: response.job_id, url, status: "pending" },
+      { jobId: data.job_id, url, status: "pending" },
     ]);
-    poll(response.job_id);
+    poll(data.job_id);
   };
 
   return (
