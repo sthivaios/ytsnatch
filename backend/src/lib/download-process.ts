@@ -12,8 +12,8 @@ export function downloadVideo(url: string) {
     "node",
     "-o",
     `/tmp/ytsnatch/${jobId}.%(ext)s`,
-    "--merge-output-format",
-    "mp4",
+    "--format",
+    "bestvideo+bestaudio/best",
     url,
   ]);
 
